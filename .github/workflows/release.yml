@@ -9,3 +9,5 @@ jobs:
       contents: write
     with:
       package: miyu-scripts-weather
+      # 打包照软件源收录用的那一版核心读清单（模板默认钉的那一版还不认 author）。
+      miyu-rev: 880ce2cb1b967f2ca81822ff6fce1d73165375bc
