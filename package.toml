@@ -1,0 +1,6 @@
+[package]
+version = "0.1.0"
+name = { en = "Weather", zh = "天气查询" }
+summary = { en = "Current weather and forecast, plus air quality, past weather, marine, climate and elevation", zh = "实时天气与预报，也能查空气质量、历史天气、海况、气候趋势和海拔" }
+author = "SHORiN-KiWATA"
+icon = "cloud-sun"
