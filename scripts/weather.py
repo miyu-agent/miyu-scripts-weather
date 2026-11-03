@@ -80,7 +80,7 @@ class Failed(Exception):
 # ---------------------------------------------------------------- 缓存、请求
 
 def cache_get(kind, key, ttl):
-    root = os.environ.get("MIYU_SCRIPT_CACHE_DIR")
+    root = os.environ.get("MIYU_CACHE_DIR")
     if not root:
         return None
     path = os.path.join(root, kind, hashlib.sha1(key.encode()).hexdigest() + ".json")
@@ -94,7 +94,7 @@ def cache_get(kind, key, ttl):
 
 
 def cache_put(kind, key, value):
-    root = os.environ.get("MIYU_SCRIPT_CACHE_DIR")
+    root = os.environ.get("MIYU_CACHE_DIR")
     if not root:
         return
     folder = os.path.join(root, kind)
