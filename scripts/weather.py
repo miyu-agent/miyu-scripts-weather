@@ -11,7 +11,7 @@
 #   "query": {"type": "string", "enum": ["forecast", "air_quality", "historical", "marine", "climate", "elevation"], "description": "forecast (default): now plus daily forecast. historical and climate need start_date."},
 #   "days": {"type": "integer", "description": "Forecast days for forecast, air_quality and marine, 1-16. Default 3."},
 #   "start_date": {"type": "string", "description": "YYYY-MM-DD, for historical (from 1940) and climate (up to 2050)."},
-#   "end_date": {"type": "string", "description": "YYYY-MM-DD. Default start_date. At most 31 days after start_date."},
+#   "end_date": {"type": "string", "description": "YYYY-MM-DD. Default start_date. At most 31 days in all, counting start_date and end_date."},
 #   "country_code": {"type": "string", "description": "ISO 3166-1 alpha-2 code such as JP, to pick the right place among same-named ones."},
 #   "format": {"type": "string", "enum": ["md", "json"], "description": "md (default) for reading; json for code, e.g. piping miyu call into jq or python."}
 # }, "required": ["location"]}
@@ -452,6 +452,9 @@ def parse(args):
     fmt = args.get("format") or "md"
     if fmt not in ("md", "json"):
         raise Failed("format 只能是 md 或 json")
+    for key in ("start_date", "end_date"):
+        if args.get(key) and not isinstance(args[key], str):
+            raise Failed(f"{key} 要写成字符串 YYYY-MM-DD，例：\"2024-07-01\"")
     return {"location": location, "query": query, "days": days, "country_code": country, "format": fmt,
             "start_date": (args.get("start_date") or "").strip() or None,
             "end_date": (args.get("end_date") or "").strip() or None}
